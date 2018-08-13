@@ -26,31 +26,19 @@ class Lifter
     end
   end
 
-  def self.sum(arr)
-    sum = 0
-
-    arr.each do |num|
-      sum += num
-    end
-    sum
-  end
-
-  def self.avg(arr)
-    (sum(arr).to_f / arr.length).round
-  end
-
   def self.average_lift
-    lift_arr = Lifter.all.map do |lifter|
-      lifter.lift_total
+    total = Lifter.all.reduce(0) do |sum, lifter|
+      sum + lifter.lift_total
     end
-    avg(lift_arr)
+
+    (total.to_f / Lifter.all.length).round
+
   end
 
   def total_cost
-    cost_arr = membership.map do |membership|
-      membership.cost
+    membership.reduce(0) do |total, membership|
+      total + membership.cost
     end
-    Lifter.sum(cost_arr)
   end
 
   def sign_up(cost, gym)

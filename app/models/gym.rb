@@ -31,14 +31,9 @@ class Gym
   end
 
   def lift_total_for_gym
-    lift_arr = lifters.map do |lifter|
-      lifter.lift_total
+    lifters.reduce(0) do |sum, lifter|
+      sum + lifter.lift_total
     end
-    sum = 0
-    lift_arr.each do |num|
-      sum += num
-    end
-    sum
   end
 
 end
